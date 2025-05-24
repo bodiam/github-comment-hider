@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>GitHub Comment Hider</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      width: 320px;
+      padding: 15px;
+      font-size: 14px;
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 15px;
+      border-bottom: 1px solid #e1e4e8;
+      padding-bottom: 10px;
+    }
+    .title {
+      margin: 0;
+      font-size: 16px;
+      font-weight: 600;
+    }
+    .toggle-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 15px;
+    }
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 40px;
+      height: 20px;
+    }
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: .4s;
+      border-radius: 20px;
+    }
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 16px;
+      width: 16px;
+      left: 2px;
+      bottom: 2px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 50%;
+    }
+    input:checked + .slider {
+      background-color: #2196F3;
+    }
+    input:checked + .slider:before {
+      transform: translateX(20px);
+    }
+    .input-container {
+      margin-bottom: 15px;
+    }
+    input[type="text"] {
+      width: 75%;
+      padding: 8px;
+      border: 1px solid #e1e4e8;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+    .add-button {
+      width: 20%;
+      margin-left: 5px;
+    }
+    .users-list {
+      max-height: 150px;
+      overflow-y: auto;
+      margin: 15px 0;
+      border: 1px solid #e1e4e8;
+      border-radius: 4px;
+      padding: 5px 0;
+    }
+    .user-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 5px 10px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .user-item:last-child {
+      border-bottom: none;
+    }
+    .user-name {
+      flex-grow: 1;
+    }
+    .remove-button {
+      background-color: #d73a49;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 3px 8px;
+      cursor: pointer;
+      font-size: 12px;
+    }
+    .remove-button:hover {
+      background-color: #cb2431;
+    }
+    .stats {
+      font-size: 12px;
+      color: #6a737d;
+      margin-top: 15px;
+      padding-top: 15px;
+      border-top: 1px solid #e1e4e8;
+    }
+    .primary-button {
+      background-color: #2ea44f;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 8px 12px;
+      cursor: pointer;
+      font-size: 14px;
+      width: 100%;
+    }
+    .primary-button:hover {
+      background-color: #2c974b;
+    }
+    .empty-list-message {
+      color: #6a737d;
+      text-align: center;
+      padding: 10px;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1 class="title">GitHub Comment Hider</h1>
+  </div>
+  
+  <div class="toggle-container">
+    <span>Enable comment hiding</span>
+    <label class="switch">
+      <input type="checkbox" id="enabled" checked>
+      <span class="slider"></span>
+    </label>
+  </div>
+  
+  <div class="input-container">
+    <label>Add a username to hide comments from:</label>
+    <div style="display: flex; align-items: center; margin-top: 5px;">
+      <input type="text" id="username" placeholder="Enter username">
+      <button id="add-user" class="add-button">Add</button>
+    </div>
+  </div>
+  
+  <div>
+    <label>Users on your hide list:</label>
+    <div id="users-list" class="users-list">
+      <div class="empty-list-message">No users added yet</div>
+    </div>
+  </div>
+  
+  <button id="save" class="primary-button">Save Settings</button>
+  
+  <div class="stats">
+    <p>Comments currently hidden: <span id="hidden-count">0</span></p>
+  </div>
+  
+  <script src="popup.js"></script>
+</body>
+</html>
